@@ -1,4 +1,4 @@
-# ETT-DST Project- 2014-2017 (MS Thesis - Subhrasankha Dey)
+# DST Project- 2014-2017 (MS Thesis - Subhrasankha Dey)
 ## Arduino_code_IITKGP_WSN
 Contains the part of source code for Wireless Sensor Network developed at the IIT Kharagpur for rainfall-runoff measurement, data logging, and interactive web-server. 
 ## Python_code_XBEE_Wireless_Transmit_Receive
