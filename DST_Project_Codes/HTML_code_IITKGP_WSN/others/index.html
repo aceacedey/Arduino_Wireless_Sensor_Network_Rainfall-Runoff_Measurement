@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1 align="center" style="color: #BB0000;" ><font Color = "RED" size ="7" >Weather monitoring Stations at IIT Kharagpur</font></h1>
+        <b align="center"><font color="Blue" size ="5" >About: Real-time Rainfall Monitoring and Flood Forecasting network for IIT Kharagpur is an ongoing project sponsored by D.S.T.
+                A main objective of the project is to monitor rainfall over the academic campus by a network of tipping bucket rain-gauges and capturing data through the Internet.
+            </font>
+        </b>
+        <br>
+        </br>
+    <style>
+         #map-canvas {
+            height: 500px;
+            width: 700px;
+            float: left;
+            margin: 10px;
+            padding: 10px
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+        function initialize() {
+            var myLatlng = new google.maps.LatLng(22.318611, 87.311944);
+            var mapOptions = {
+                zoom: 14,
+                center: myLatlng
+            }
+            var myLatlng1 = new google.maps.LatLng(22.317778, 87.310556);
+            var mapOptions = {
+                zoom: 14,
+                center: myLatlng1
+            }
+            var myLatlng3 = new google.maps.LatLng(22.321944, 87.309444);
+            var mapOptions = {
+                zoom: 14,
+                center: myLatlng3
+            }
+            var myLatlng4 = new google.maps.LatLng(22.309167, 87.309722);
+            var mapOptions = {
+                zoom: 14,
+                center: myLatlng4
+            }
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            var i=5;
+            var markers = [];
+
+            markers[0] = new google.maps.Marker({
+                position: myLatlng,
+                url: 'http://10.19.2.42/',
+                title: 'IIT Kharagpur,Department of Civil Engineering',
+                map: map
+            });
+
+            markers[1] = new google.maps.Marker({
+                position: myLatlng1,
+                url: 'http://10.172.1.202/',
+                title: 'IIT Kharagpur,School of Water Resources',
+                map: map
+            });
+
+            markers[2] = new google.maps.Marker({
+                position: myLatlng3,
+                url: 'http://10.124.4.8/',
+                title: 'IIT Kharagpur,S.T.E.P.',
+                map: map
+            });
+
+            markers[3] = new google.maps.Marker({
+                position: myLatlng4,
+                url: 'http://10.124.68.100/',
+                title: 'IIT Kharagpur,V.S.R.C.',
+                map: map
+            });
+
+            for (i = 0; i < markers.length; i++ ) {
+                google.maps.event.addListener(markers[i], 'click', function() {
+                    window.open(this.url, '_blank');  //changed from markers[i] to this[i]
+                });
+            }
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+
+    <div id="map-canvas" align="center" > </div>
+	<a href="./Data"><font Color = "BLACK" size ="5" >ClICK HERE TO DOWNLOAD</font></a>
+</body>
+</html>

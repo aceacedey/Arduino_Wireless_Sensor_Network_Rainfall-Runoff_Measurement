@@ -1,0 +1,64 @@
+#define MaxHeaderLength 16    //maximum length of http header required
+
+byte mac[] = {
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };   //physical mac address
+byte ip[] = {
+  192, 168, 2, 201 };   // static ip of Arduino
+byte gateway[] = {
+  192, 168, 2, 254 };  // gateway address
+byte subnet[] = {
+  255, 255, 255, 0 };  //subnet mask
+EthernetServer server(80);   //web server port
+
+String HttpHeader = String(MaxHeaderLength);
+
+void setup(){
+  //enable serial monitor
+  Serial.begin(9600);
+  //start Ethernet
+  Ethernet.begin(mac, ip, gateway, subnet);
+
+   //initialize variable
+  HttpHeader="";
+}
+
+void loop(){
+  // Create a client connection
+  EthernetClient client = server.available();
+  if (client) {
+    while (client.connected()) {
+      if (client.available()) {
+
+         char c = client.read();
+         //read MaxHeaderLength number of characters in the HTTP header
+         //discard the rest until \n
+         if (HttpHeader.length() < MaxHeaderLength)
+         {
+           //store characters to string
+           HttpHeader = HttpHeader + c;
+         }
+         //if HTTP request has ended
+         if (c == '\n') {
+           // show the string on the monitor
+           Serial.println(HttpHeader);
+          // start of web page
+           client.println("HTTP/1.1 200 OK");
+           client.println("Content-Type: text/html");
+           client.println("<html><head></head><body>");
+           client.println();
+           client.print("<form method=get>");
+           client.print("<input type='radio' name=r value='1'> One<br>");
+           client.print("<input type='radio' name=r value='2' checked> Two<br>");
+           client.print("<input type='radio' name=r value='3'> Three<br>");
+            client.print("<input type=submit value=submit></form>");
+           client.print("</body></html>");
+
+           //clearing string for next read
+           HttpHeader="";
+           //stopping client
+            client.stop();
+         }
+       }
+     }
+
+   }

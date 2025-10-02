@@ -1,0 +1,189 @@
+http://www.youtube.com/watch?v=0a1vkSB2LQY
+
+
+
+
+
+
+
+
+
+
+/*
+  Web Server with X10 Firecracker control
+  
+  No need for a app, or a program on the PC, this simple arduino program allows web based html button control of the arduino from any browser, on a PC, IPAD, IPOD, smart phone.  
+  
+  A Waltsailing Production 
+ 
+
+ 
+* Ethernet shield attached to pins 10, 11, 12, 13
+*  x10 Firecracker attaches to pins 8 and 9
+
+
+*/
+
+#include <SPI.h>
+#include <Ethernet.h>
+#include <X10Firecracker.h>
+#include <WString.h>
+
+#define RTS_PIN     8	                // RTS line for C17A - DB9 pin 7
+#define DTR_PIN     9	                // DTR line for C17A - DB9 pin 4
+#define BIT_DELAY   1                   // mS delay between bits (1 mS OK)
+
+// Enter a MAC address and IP address for your controller below.
+// The IP address will be dependent on your local network:
+
+byte mac[] = { 
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+IPAddress ip(192,168,1, 177);
+
+String s = String(30); //string for fetching data from address
+String cmd = "/X" ; //X is an example of the command that will come after the ethernet address in the GET...
+
+
+// Initialize the Ethernet server library
+// with the IP address and port you want to use 
+// (port 80 is default for HTTP):
+EthernetServer server(80);
+
+void setup() {
+ // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+   while (!Serial) {
+    ; // wait for serial port to connect. Needed for Leonardo only
+  }
+  
+  Serial.print("Pgm started  ");
+
+  // start the Ethernet connection and the server:
+  Ethernet.begin(mac, ip);
+  server.begin();
+  Serial.print("server is at ");
+  Serial.println(Ethernet.localIP());
+  
+  
+
+  X10.init(RTS_PIN, DTR_PIN, BIT_DELAY); 
+}
+
+
+void loop() {
+  // listen for incoming clients
+  EthernetClient client = server.available();
+  if (client) {
+    Serial.println("new client");
+    // an http request ends with a blank line
+    
+    
+    boolean currentLineIsBlank = true;
+    boolean DoPage=true;
+    
+    while (client.connected()) {
+        if (client.available()) {
+               char c = client.read();
+               Serial.write(c);
+               if (s.length() < 7) { s.concat(c); }   // build up a short string to parse
+               if(s.substring(0,3) == "GET" & DoPage){    // check for the GET from the web page
+                    
+                     cmd=s.substring(4,6);        // get the 2 letters in the string out and call this the CMD,  /A, or /B or /H etc, these come in after the GET
+                     // Serial.println("CMD=");
+                     //Serial.println(cmd);
+                     
+          
+                     // Got a GET so, compare the received command to the specific command and then do something
+                     
+                     if (cmd == "/A" && DoPage) {
+                                Serial.println(F("Found A Pole Light on "));      
+                                X10.sendCmd( hcE, 14, cmdOn );
+                               DoPage = false;
+                     }  
+                     if (cmd == "/B" && DoPage) {
+                                Serial.println(F(" Light Dim"));
+                                X10.sendCmd( hcE, 14, cmdDim );
+                               DoPage = false;
+                     }
+                     if (cmd == "/H" && DoPage) {
+                                Serial.println(F(" Light Bright"));
+                                X10.sendCmd( hcE, 14, cmdBright );
+                               DoPage = false;
+                     }
+                     if (cmd == "/C" && DoPage) {
+                                Serial.println(F("Found C Pole Light Off"));
+                                X10.sendCmd( hcE, 14, cmdOff );
+                               DoPage = false;
+                     } 
+                     if (cmd == "/S" && DoPage) {
+                                Serial.println(F("Found S  Ceiling on"));
+                                X10.sendCmd( hcE, 7, cmdOn );
+                               DoPage = false;
+                     } 
+                     if (cmd =="/R" && DoPage) {
+                                Serial.println(F("Found T Ceiling Off"));
+                                X10.sendCmd( hcE, 7, cmdOff );
+                               DoPage = false;
+                     }        
+                     if (cmd == "/U" && DoPage) {
+                                Serial.println(F("Found U  Light on"));
+                                X10.sendCmd( hcE, 8, cmdOn );
+                              DoPage = false;
+                     }
+                     if (cmd =="/W" && DoPage) {
+                                Serial.println(F("Found W pole lamp Off"));
+                                X10.sendCmd( hcE, 8, cmdOff );
+                               DoPage = false;
+                     }       
+                 
+               }
+        
+        
+              // if you've gotten to the end of the line (received a newline
+              // character) and the line is blank, the http request has ended,
+              // so you can send a reply
+              if (c == '\n' && currentLineIsBlank) {
+              // send a standard http response header
+                      client.println(F("HTTP/1.1 200 OK"));
+                      client.println(F("Content-Type: text/html"));
+                      client.println(F("Connnection: close"));
+                      client.println();
+                      client.println(F("<!DOCTYPE HTML>"));
+                      client.println(F("<html>"));
+                      client.println(F("<head>"));
+                      client.println(F("<meta content='text/html; charset=ISO-8859-1'http-equiv='content-type'>"));
+                      client.println(F("<title>Walts Arduino Program"));
+                      client.println(F("</title>"));
+                      client.println(F("</head>"));
+                      // the next line sets the background color to something nice like blue
+                      client.println(F("<body style='background-color: rgb(0, 0, 153); color: rgb(255, 255, 0);'alink='#cc6600' link='#cc0000' vlink='#993300'>"));
+                      //  load in a background .jpg for the web page.
+                      client.println(F("<BODY BACKGROUND='http://home.comcast.net/%7EWaltschn1/Waltschn1/la_dolce_vita_near_dock_2s.jpg' style='width: 481px; height: 690px;'></span><br>"));
+                      //  set up some HTML that has buttons with specific actions that link back to the arduino at the address of the arduino and have a specific string 
+                      client.println(F("<FORM METHOD='LINK' ACTION='http://192.168.1.177/A\r'><INPUT TYPE='submit' VALUE='Den Pole Light On '></FORM>  "));                  
+                      client.println(F("<FORM METHOD='LINK' ACTION='http://192.168.1.177/C\r'><INPUT TYPE='submit' VALUE='Den Pole Light Off '></FORM>  "));      
+                      client.println(F("<FORM METHOD='LINK' ACTION='http://192.168.1.177/S\r'><INPUT TYPE='submit' VALUE='Den Ceiling Light On  '></FORM>  "));
+                      client.println(F("<FORM METHOD='LINK' ACTION='http://192.168.1.177/R\r'><INPUT TYPE='submit' VALUE='Den Ceiling Light Off '></FORM>  "));
+                      client.println(F("<FORM METHOD='LINK' ACTION='http://192.168.1.177/U\r'><INPUT TYPE='submit' VALUE='Den Table Light on '></FORM>  "));
+                      client.println(F("<FORM METHOD='LINK' ACTION='http://192.168.1.177/W\r'><INPUT TYPE='submit' VALUE='Den Table Light Off'></FORM>  "));   
+                      client.println(F("<FORM METHOD='LINK' ACTION='http://192.168.1.177/B\r'><INPUT TYPE='submit' VALUE='Light Dim'></FORM>  "));
+                      client.println(F("<FORM METHOD='LINK' ACTION='http://192.168.1.177/H\r'><INPUT TYPE='submit' VALUE='Light Brighten'></FORM>  "));
+                      client.println("</html>");
+                      // Clear out the received string
+                      s="";
+                      break;
+                }
+                if (c == '\n') {
+                      currentLineIsBlank = true;
+                } 
+                else if (c != '\r') {
+                      currentLineIsBlank = false;
+                }
+          }
+    }
+    client.stop();
+    Serial.println("client disonnected");
+    
+  }
+  
+}  // end 

@@ -1,0 +1,75 @@
+// Small Arduino Webserver
+// by Andreas Cahen
+//
+// Used libraries and examples:
+//
+// Arduino Ethershield, server.pde
+// TextString Library, WString.h 
+// Blinkm Library, BlinkMfuncs.h
+
+
+#include <Ethernet.h>
+#include <WString.h>
+#include <Wire.h>
+#include <BlinkM_funcs.h>
+#define maxLength 25
+#define blinkm_addr 0x00
+
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+byte ip[] = { 192, 168, 1, 177 };
+String inString = String(maxLength); 
+int val;
+int r;
+int g;
+int b;
+Server server(80);
+
+void setup()
+{
+  Ethernet.begin(mac, ip);
+  server.begin();
+  BlinkM_beginWithPower();  
+  BlinkM_stopScript( blinkm_addr );  
+}
+void loop()
+{
+  Client client = server.available();
+  if (client) {
+    boolean current_line_is_blank = true;
+    while (client.connected()) {
+      if (client.available()) {
+        char c = client.read();
+        if (inString.length() < maxLength) {
+          inString.append(c);
+         }        
+        if (c == '\n' && current_line_is_blank) {
+          if (inString.contains("?")) { 
+           int Pos_r = inString.indexOf("r");
+           int Pos_g = inString.indexOf("g");
+           int Pos_b = inString.indexOf("b");
+           int End = inString.indexOf("H");
+           r = atoi(inString.substring((Pos_r+2), (Pos_g-1))); 
+           g = atoi(inString.substring((Pos_g+2), (Pos_b-1))); 
+           b = atoi(inString.substring((Pos_b+2), (End-1)));  
+           BlinkM_fadeToRGB( blinkm_addr, r, g, b );
+         } 
+          client.println("HTTP/1.1 200 OK");
+          client.println("Content-Type: text/html");
+          client.println();
+          client.println("<html><head></head><body>");
+          client.println("<h1>blinkm & ethershield colorpicker</h1>");
+          client.println("<form method=get>R:<input type=text size=3 name=r>G:<input type=text size=3 name=g>B:<input type=text size=3 name=b>&nbsp;<input type=submit value=submit></form></body></html>");       
+          break;
+        }
+        if (c == '\n') {
+          current_line_is_blank = true;
+        } else if (c != '\r') {
+          current_line_is_blank = false;
+        }
+      }
+    }
+    delay(1);
+    inString = "";
+    client.stop();
+  } 
+}
