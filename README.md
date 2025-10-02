@@ -1,44 +1,21 @@
-usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           [--config-env=<name>=<envvar>] <command> [<args>]
+# ETT-DST Project- 2014-2017 (MS Thesis - Subhrasankha Dey)
+## Arduino_code_IITKGP_WSN
+Contains the part of source code for Wireless Sensor Network developed at the IIT Kharagpur for rainfall-runoff measurement, data logging, and interactive web-server. 
+## Python_code_XBEE_Wireless_Transmit_Receive
+Contains the part of source code for Wireless Sensor Network developed at the IIT Kharagpur for rainfall-runoff measurement, data logging, and interactive web-server. 
+## HTML_code_IITKGP_WSN
+Contains the part of source code for Wireless Sensor Network developed at the IIT Kharagpur for rainfall-runoff measurement, data logging, and interactive web-server. 
+### Publication - Real-time OGC compliant online data monitoring and acquisition network for management of hydro-meteorological hazards (https://doi.org/10.1080/09715010.2016.1264896)
 
-These are common Git commands used in various situations:
 
-start a working area (see also: git help tutorial)
-   clone     Clone a repository into a new directory
-   init      Create an empty Git repository or reinitialize an existing one
 
-work on the current change (see also: git help everyday)
-   add       Add file contents to the index
-   mv        Move or rename a file, a directory, or a symlink
-   restore   Restore working tree files
-   rm        Remove files from the working tree and from the index
+## Distributed Computing Project
+### Chord DHT Implementation in C/C++ (Coursework - Distributed Computing)
+This project is an implementation of a Chord Distributed Hash Table (DHT). The system is designed to simulate a distributed key-value store by spawning multiple processes on a single Unix/Linux-based machine, where each process acts as a node in the DHT ring.
+The project consists of a C++ backend that manages the DHT logic and a simple C-based command-line interface (CLI) for user interaction.
 
-examine the history and state (see also: git help revisions)
-   bisect    Use binary search to find the commit that introduced a bug
-   diff      Show changes between commits, commit and working tree, etc
-   grep      Print lines matching a pattern
-   log       Show commit logs
-   show      Show various types of objects
-   status    Show the working tree status
+## CMOS_Camera_Codes
+Contains the source code of integrating OV7670 CMOS camera with Arduino and make it compatible with Quadcopters.
 
-grow, mark and tweak your common history
-   branch    List, create, or delete branches
-   commit    Record changes to the repository
-   merge     Join two or more development histories together
-   rebase    Reapply commits on top of another base tip
-   reset     Reset current HEAD to the specified state
-   switch    Switch branches
-   tag       Create, list, delete or verify a tag object signed with GPG
-
-collaborate (see also: git help workflows)
-   fetch     Download objects and refs from another repository
-   pull      Fetch from and integrate with another repository or a local branch
-   push      Update remote refs along with associated objects
-
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-See 'git help git' for an overview of the system.
+## Quadcopter_Codes
+Contains dev codes for a custom made quadcopter. Video - https://www.youtube.com/watch?v=NtLcCc_VHIg
