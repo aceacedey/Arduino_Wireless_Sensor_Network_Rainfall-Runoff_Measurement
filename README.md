@@ -1,5 +1,5 @@
-# Arduino Wireless Sensor Rainfall–Runoff Measurement (IIT-Kharagpur, India) (Masters Thesis work - Subhrasankha Dey)
-#### Contents: Source code for a Wireless Sensor Network for rainfall-runoff measurement, remote data logging, and interactive web-server. 
+# Arduino-based Wireless Sensor Network for Rainfall–Runoff Measurement (IIT-Kharagpur, India) 
+#### Contents: Source code for a Wireless Sensor Network for rainfall-runoff measurement, remote data logging, and interactive web-server. Masters Thesis work by Subhrasankha Dey (2014-2017).
 #### Project: Real-time, low-cost hydro-meteorological monitoring network at IIT Kharagpur, India. 
 #### Purpose: Collect rainfall and related meteorological/hydraulic data using Arduino field nodes, host a small station web UI per node, locally log data to SD (with RTC), and forward/aggregate remote node measurements using XBee → Ethernet gateways.
 #### Funded by: Department of Science and Techonology, Govt. of India.  
