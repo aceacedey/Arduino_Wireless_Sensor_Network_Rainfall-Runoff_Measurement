@@ -1,19 +1,9 @@
-# DST Project- 2014-2017 (MS Thesis - Subhrasankha Dey)
-## Arduino_code_IITKGP_WSN
-Contains the part of source code for Wireless Sensor Network developed at the IIT Kharagpur for rainfall-runoff measurement, data logging, and interactive web-server. 
-## Python_code_XBEE_Wireless_Transmit_Receive
-Contains the part of source code for Wireless Sensor Network developed at the IIT Kharagpur for rainfall-runoff measurement, data logging, and interactive web-server. 
-## HTML_code_IITKGP_WSN
-Contains the part of source code for Wireless Sensor Network developed at the IIT Kharagpur for rainfall-runoff measurement, data logging, and interactive web-server. 
-### Publication - Real-time OGC compliant online data monitoring and acquisition network for management of hydro-meteorological hazards (https://doi.org/10.1080/09715010.2016.1264896)
-
-
-
-# Arduino Wireless Sensor Rainfall–Runoff Measurement (DST, IIT-KGP)
-
-**Project:** Real-time, low-cost hydro-meteorological monitoring network  
-**Origin:** DST project — IIT Kharagpur (IIT KGP)  
-**Purpose:** Collect rainfall and related meteorological/hydraulic data using Arduino field nodes, host a small station web UI per node, locally log data to SD (with RTC), and forward/aggregate remote node measurements using XBee → Ethernet gateways.
+# Arduino Wireless Sensor Rainfall–Runoff Measurement (IIT-Kharagpur, India) (Masters Thesis work - Subhrasankha Dey)
+#### Contents: Source code for a Wireless Sensor Network for rainfall-runoff measurement, remote data logging, and interactive web-server. 
+#### Project: Real-time, low-cost hydro-meteorological monitoring network at IIT Kharagpur, India. 
+#### Purpose: Collect rainfall and related meteorological/hydraulic data using Arduino field nodes, host a small station web UI per node, locally log data to SD (with RTC), and forward/aggregate remote node measurements using XBee → Ethernet gateways.
+#### Funded by: Department of Science and Techonology, Govt. of India.  
+#### Publication - Real-time OGC compliant online data monitoring and acquisition network for management of hydro-meteorological hazards (https://doi.org/10.1080/09715010.2016.1264896)
 
 ---
 
