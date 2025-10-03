@@ -18,12 +18,12 @@
 
 ---
 
-## One-line summary
+## Summary
 This repository contains Arduino sketches, a small XBee → Ethernet router/gateway, and Python scraper/logger scripts used to run a pragmatic hydro-meteorological sensor network. Nodes either (a) host an HTML status page on a fixed IP (Ethernet shield) or (b) log locally to SD; remote nodes send ASCII payloads over XBee to a router/gateway which makes values available on the LAN; Python scrapers fetch the pages and append daily logs.
 
 ---
 
-## Files & roles
+## Files & utilities
 
 ### `DST_Project_Codes/HTML_code_IITKGP_WSN/index.html`
 - **Role:** Map and station launcher page.  
@@ -108,10 +108,10 @@ flowchart TD
     A2["Sensor Node (XBee)"] -->|ASCII Payload 'NNN\n'| C[Router_xBEE]
     C -->|Serial Forward| D["Ethernet Gateway (final_ethernet_xbee_cordi)"]
     D -->|LAN HTML Page| B
-
+    
     B -->|Scrape Rainfall Values| E["Python Scrapers (civil.py, sowr.py, etc.)"]
     A3[Datalogger Node] -->|CSV Logs| F[SD Card Storage]
-
+    A2 -->|Local data logging|A3
     style B fill:#e6f7ff,stroke:#0077b6,stroke-width:2px
     style E fill:#fff3cd,stroke:#ff9800,stroke-width:2px
     style F fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
