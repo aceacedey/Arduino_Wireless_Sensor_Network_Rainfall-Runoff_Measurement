@@ -165,7 +165,7 @@ flowchart TD
 - The datalogger sketch logs every **60 s** → adjust sampling to match power and storage constraints.  
 - Always close SD file writes to avoid corruption during power loss.  
 
---
+---
 
 # Distributed Computing Project
 ## Chord DHT Implementation in C/C++ (Coursework - Distributed Computing)
@@ -178,5 +178,6 @@ The project consists of a C++ backend that manages the DHT logic and a simple C-
 Contains the source code of integrating OV7670 CMOS camera with Arduino and make it compatible with Quadcopters.
 
 ---
-## Quadcopter_Codes
+
+# Quadcopter_Codes
 Contains dev codes for a custom made quadcopter. Video - https://www.youtube.com/watch?v=NtLcCc_VHIg
